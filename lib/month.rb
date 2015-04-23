@@ -1,5 +1,5 @@
 class Month
-  attr_reader :month, :year
+  attr_reader :month, :year, :days_in_month
 
   def initialize(month, year)
     @month = month
@@ -12,7 +12,7 @@ class Month
     return months[@month.truncate - 1]
   end
 
-  def padding
+  def name_padding
     case @month.truncate
     when 2, 9, 11..12
       "   "
@@ -25,15 +25,41 @@ class Month
     end
   end
 
+  def days_in_month
+    case @month.truncate
+    when 1, 3, 5, 7, 8, 10, 12
+      31
+    when 4, 6, 9, 11
+      30
+    else
+      28
+    end
+  end
+
+  def print_days
+    day_output = ""
+    (days_in_month - 1).times do |day|
+      if (day + 1) < 10
+        if (day + 1) % 7 == 0
+          day_output << " #{day + 1}\n"
+        else
+          day_output << " #{day + 1} "
+        end
+      elsif (day + 1) % 7 == 0
+        day_output << "#{day + 1}\n"
+      else
+        day_output << "#{day + 1} "
+      end
+    end
+    day_output << days_in_month.to_s
+    day_output
+  end
+
   def to_s
     <<EOS
-#{padding}#{name} #{year}
+#{name_padding}#{name} #{year}
 Su Mo Tu We Th Fr Sa
- 1  2  3  4  5  6  7
- 8  9 10 11 12 13 14
-15 16 17 18 19 20 21
-22 23 24 25 26 27 28
-29 30 31
+#{print_days}
 
 EOS
   end
