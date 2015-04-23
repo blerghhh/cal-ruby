@@ -12,9 +12,22 @@ class Month
     return months[@month.truncate - 1]
   end
 
+  def padding
+    case @month.truncate
+    when 2, 9, 11..12
+      "   "
+    when 1, 8, 10
+      "    "
+    when 3, 4, 6..7
+      "     "
+    else
+      "      "
+    end
+  end
+
   def to_s
     <<EOS
-    #{name} #{year}
+#{padding}#{name} #{year}
 Su Mo Tu We Th Fr Sa
  1  2  3  4  5  6  7
  8  9 10 11 12 13 14
