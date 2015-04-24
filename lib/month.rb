@@ -1,9 +1,11 @@
+require_relative 'year'
+
 class Month
   attr_reader :day, :month, :year, :days_in_month
 
   def initialize(month, year)
     @month = month
-    @year = year
+    @year = Year.new(year)
     @day = start_day
   end
 
@@ -33,20 +35,17 @@ class Month
     when 4, 6, 9, 11
       30
     else
-      28
+      @year.leap?
     end
   end
 
   def start_day
     # The start day of each month is derived using Zeller's Congruence (http://en.wikipedia.org/wiki/Zeller%27s_congruence). The return value 0-6 represents the day of the week the first of each month falls on, where 0 = Saturday, 1 = Sunday, etc.
     m = @month
-    k = @year % 100
-    j = @year / 100
-    if m == 1
-      m = 13
-      k -= 1
-    elsif m == 2
-      m = 14
+    k = @year.year % 100
+    j = @year.year / 100
+    if (m < 3)
+      m += 12
       k -= 1
     end
     day = (1 + (13*(m+1))/5 + k + (k/4) + (j/4) + (5*j)) % 7
@@ -75,7 +74,7 @@ class Month
 
   def to_s
     <<EOS
-#{name_padding}#{name} #{year}
+#{name_padding}#{name} #{year.year}
 Su Mo Tu We Th Fr Sa
 #{print_days}
 

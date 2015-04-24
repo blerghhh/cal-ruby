@@ -1,8 +1,7 @@
 #!/usr/bin/env ruby
 
 require_relative 'lib/month'
-# require 'year'
-# require 'day'
+require_relative 'lib/year'
 
 def standard_error_msg
   puts "Date not in acceptable format/range.\n./cal.rb [month] [year]"

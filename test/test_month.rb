@@ -6,7 +6,7 @@ class TestMonth < Minitest::Test
   def test_initalizing_a_month_saves_values
     m = Month.new(05, 2015)
     assert_equal 05, m.month
-    assert_equal 2015, m.year
+    assert_equal 2015, m.year.year
   end
 
   def test_to_s_on_jan_2012
@@ -99,6 +99,16 @@ EOS
   def test_start_day_for_may_2008
     m = Month.new(05, 2008)
     assert_equal 5, m.start_day
+  end
+
+  def test_start_day_for_feb_1900
+    m = Month.new(02, 1900)
+    assert_equal 5, m.start_day
+  end
+
+  def test_start_day_for_feb_1800
+    m = Month.new(02, 1800)
+    assert_equal 0, m.start_day
   end
 
 end
