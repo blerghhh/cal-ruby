@@ -38,6 +38,8 @@ class Month
   end
 
   def start_day
+    # The start day of each month is derived using Zeller's Congruence (http://en.wikipedia.org/wiki/Zeller%27s_congruence). The return value 0-6 represents the day of the week the first of each month falls on, where 0 = Saturday, 1 = Sunday, etc.
+
     m = @month
     k = @year % 100
     j = @year / 100
@@ -48,20 +50,24 @@ class Month
       m = 14
       k -= 1
     end
-    h = (1 + (13*(m+1))/5 + k + (k/4) + (j/4) + (5*j)) % 7
-    return h
+    day = (1 + (13*(m+1))/5 + k + (k/4) + (j/4) + (5*j)) % 7
+    return day
   end
 
   def print_days
     day_output = ""
+    zellers_reversed = [6, 5, 4, 3, 2, 1, 0]
+    zellers_arr = [0, 1, 2, 3, 4, 5, 6]
+    line1_whitespace = 18 - (zellers_reversed[start_day - 1] * 3)
+    day_output << " " * line1_whitespace
     (days_in_month - 1).times do |day|
       if (day + 1) < 10
-        if (day + 1) % 7 == 0
+        if (day + zellers_arr[start_day]) % 7 == 0
           day_output << " #{day + 1}\n"
         else
           day_output << " #{day + 1} "
         end
-      elsif (day + 1) % 7 == 0
+      elsif (day + zellers_arr[start_day]) % 7 == 0
         day_output << "#{day + 1}\n"
       else
         day_output << "#{day + 1} "
