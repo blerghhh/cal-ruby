@@ -8,12 +8,8 @@ def standard_error_msg
   puts "Date not in acceptable format/range.\n./cal.rb [month] [year]"
 end
 
-def valid_input
-  1
-end
-
-month = ARGV[0]
-year = ARGV[1]
+month = ARGV[0].to_i
+year = ARGV[1].to_i
 # `cal #{month} #{year}`
 
 m = Month.new(month, year)
