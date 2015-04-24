@@ -46,7 +46,8 @@ class Month
     j = @year.year / 100
     if (m < 3)
       m += 12
-      k -= 1
+      k = (@year.year - 1) % 100
+      j = (@year.year - 1) / 100
     end
     day = (1 + (13*(m+1))/5 + k + (k/4) + (j/4) + (5*j)) % 7
   end
