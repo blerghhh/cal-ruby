@@ -9,11 +9,11 @@ class Month
   def name
     months = ["January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"]
-    return months[@month.truncate - 1]
+    return months[@month.to_i.truncate - 1]
   end
 
   def name_padding
-    case @month.truncate
+    case @month.to_i.truncate
     when 2, 9, 11..12
       "   "
     when 1, 8, 10
@@ -26,7 +26,7 @@ class Month
   end
 
   def days_in_month
-    case @month.truncate
+    case @month.to_i.truncate
     when 1, 3, 5, 7, 8, 10, 12
       31
     when 4, 6, 9, 11
