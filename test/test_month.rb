@@ -74,9 +74,24 @@ EOS
     assert_equal 31, m.days_in_month
   end
 
-  # def test_days_in_september
-  #   m = Month.new(09, 2009)
-  #   assert_equal "30", m.days_in_month
-  # end
+  def test_days_in_september
+    m = Month.new("09".to_i, 2009)
+    assert_equal 30, m.days_in_month
+  end
+
+  def test_start_day_for_jan_2000
+    m = Month.new(01, 2000)
+    assert_equal 0, m.start_day
+  end
+
+  def test_start_day_for_dec_2005
+    m = Month.new(12, 2005)
+    assert_equal 5, m.start_day
+  end
+
+  def test_start_day_for_may_2008
+    m = Month.new(05, 2008)
+    assert_equal 5, m.start_day
+  end
 
 end

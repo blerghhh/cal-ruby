@@ -1,9 +1,10 @@
 class Month
-  attr_reader :month, :year, :days_in_month
+  attr_reader :day, :month, :year, :days_in_month
 
   def initialize(month, year)
-    @month = month
-    @year = year
+    @month = month.to_i.truncate
+    @year = year.to_i
+    @day = start_day
   end
 
   def name
@@ -13,7 +14,7 @@ class Month
   end
 
   def name_padding
-    case @month.to_i.truncate
+    case @month
     when 2, 9, 11..12
       "   "
     when 1, 8, 10
@@ -26,7 +27,7 @@ class Month
   end
 
   def days_in_month
-    case @month.to_i.truncate
+    case @month
     when 1, 3, 5, 7, 8, 10, 12
       31
     when 4, 6, 9, 11
@@ -34,6 +35,21 @@ class Month
     else
       28
     end
+  end
+
+  def start_day
+    m = @month
+    k = @year % 100
+    j = @year / 100
+    if m == 1
+      m = 13
+      k -= 1
+    elsif m == 2
+      m = 14
+      k -= 1
+    end
+    h = (1 + (13*(m+1))/5 + k + (k/4) + (j/4) + (5*j)) % 7
+    return h
   end
 
   def print_days
