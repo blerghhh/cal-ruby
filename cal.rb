@@ -13,4 +13,10 @@ year = ARGV[1].to_i
 # `cal #{month} #{year}`
 
 m = Month.new(month, year)
-puts m.to_s
+
+# if (ARGV[0].nil? or ARGV[1].nil? or (ARGV[0] != (1..12)) or (ARGV[1] != (1800..3000)))
+if !month.between?(1,12) or !year.between?(1800,3000)
+  standard_error_msg
+else
+  puts m.to_s
+end
