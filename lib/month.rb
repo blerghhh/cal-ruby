@@ -15,19 +15,6 @@ class Month
     months[@month - 1]
   end
 
-  def name_padding
-    case @month
-    when 2, 9, 11..12
-      " " * 3
-    when 1, 8, 10
-      " " * 4
-    when 3, 4, 6..7
-      " " * 5
-    else
-      " " * 6
-    end
-  end
-
   def days_in_month
     case @month
     when 1, 3, 5, 7, 8, 10, 12
@@ -54,20 +41,15 @@ class Month
 
   def print_days
     day_output = ""
+    day_output << "Su Mo Tu We Th Fr Sa\n"
     zellers_arr = (0..6).to_a
     line1_whitespace = 18 - (zellers_arr.reverse[start_day - 1] * 3)
     day_output << " " * line1_whitespace
     (days_in_month - 1).times do |day|
-      if (day + 1) < 10
-        if (day + zellers_arr[start_day]) % 7 == 0
-          day_output << " #{day + 1}\n"
-        else
-          day_output << " #{day + 1} "
-        end
-      elsif (day + zellers_arr[start_day]) % 7 == 0
-        day_output << "#{day + 1}\n"
+      if (day + zellers_arr[start_day]) % 7 == 0
+        day_output << "#{day + 1}\n".rjust(3)
       else
-        day_output << "#{day + 1} "
+        day_output << "#{day + 1} ".rjust(3)
       end
     end
     day_output << days_in_month.to_s
@@ -76,7 +58,6 @@ class Month
   def to_s
     <<EOS
 #{"#{name} #{year.year}".center(20).rstrip}
-Su Mo Tu We Th Fr Sa
 #{print_days}
 
 EOS
