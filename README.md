@@ -1,5 +1,5 @@
 # cal-ruby
-Ruby implementation of a subset of the Unix program cal. The program will take a command line argument following the format "cal ([MM] or [M]) [YYYY]". Both arguments are optional.
+Ruby implementation of a subset of the Unix program cal. The program will take a command line argument following the format "cal ([MM] or [M]) [YYYY]". Month argument is optional.
 
 ## Objectives
 
