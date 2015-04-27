@@ -54,7 +54,7 @@ class Month
 
   def print_days
     day_output = ""
-    zellers_arr = [0, 1, 2, 3, 4, 5, 6]
+    zellers_arr = (0..6).to_a
     line1_whitespace = 18 - (zellers_arr.reverse[start_day - 1] * 3)
     day_output << " " * line1_whitespace
     (days_in_month - 1).times do |day|
@@ -75,7 +75,7 @@ class Month
 
   def to_s
     <<EOS
-#{name_padding}#{name} #{year.year}
+#{"#{name} #{year.year}".center(20).rstrip}
 Su Mo Tu We Th Fr Sa
 #{print_days}
 

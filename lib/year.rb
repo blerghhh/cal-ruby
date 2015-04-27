@@ -18,7 +18,12 @@ class Year
   end
 
   def to_s
-    @year
+    <<EOS
+#{year}
+Su Mo Tu We Th Fr Sa
+
+
+EOS
   end
 
 end
