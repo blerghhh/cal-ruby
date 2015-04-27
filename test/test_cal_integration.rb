@@ -288,26 +288,26 @@ EOS
 
   ###### Test for incorrect formatting #####
 
-#   def test_missing_both_arguments
-#   output = `./cal.rb`
-#   expected = <<EOS
-# Date not in acceptable format/range.
-# ./cal.rb [month] [year]
-# EOS
-#
-#   assert_equal expected, output
-#   end
-#
-#   def test_missing_one_argument
-#   output = `./cal.rb 2014`
-#   expected = <<EOS
-# Date not in acceptable format/range.
-# ./cal.rb [month] [year]
-# EOS
-#
-#   assert_equal expected, output
-#   end
-#
+  def test_missing_both_arguments
+  output = `./cal.rb`
+  expected = <<EOS
+Date not in acceptable format/range.
+./cal.rb [month] [year]
+EOS
+
+  assert_equal expected, output
+  end
+
+  def test_too_many_arguments
+  output = `./cal.rb 01 12 2014`
+  expected = <<EOS
+Date not in acceptable format/range.
+./cal.rb [month] [year]
+EOS
+
+  assert_equal expected, output
+  end
+
 
   ##### Test for bad date ranges #####
 

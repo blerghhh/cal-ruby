@@ -24,4 +24,6 @@ elsif ARGV.length == 1
   else
     puts y.to_s
   end
+else
+  standard_error_msg
 end
