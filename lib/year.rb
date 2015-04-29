@@ -29,27 +29,25 @@ class Year
   def month_dates(row)
     output = ""
     7.times do |line|
-      output << print_line(row, line)
+      output << print_row(row, line)
     end
     output
   end
 
-  def print_line(row, line)
+  def print_row(row, line)
     output = ""
-    row.each {|m| output << print_line_for_month(m, row, line)}
+    row.each {|m| output << print_line(m, row, line)}
     output
   end
 
-  def print_line_for_month(m, row, line)
+  def print_line(m, row, line)
     output = ""
     unless m.days.lines[line].nil?
-
       if m != row.last
         output << "#{m.days.lines[line].chomp.ljust(22)}"
       else
         output << "#{m.days.lines[line].rstrip}\n"
       end
-
     else
       m == row.last ? output << "\n" : output << "#{("\s" * 22).chomp.ljust(22)}"
     end
