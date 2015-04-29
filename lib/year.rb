@@ -21,41 +21,33 @@ class Year
   def month_names(row)
     output = ""
     row.each do |m|
-      (m != row.last) ? output << "#{m.name.center(20)}\s\s" : output << "#{m.name.center(20).rstrip}\n"
+      m == row.last ? output << "#{m.name.center(20).rstrip}\n" : output << "#{m.name.center(20)}\s\s"
     end
     output
   end
 
   def print_month_lines(row)
     output = ""
-    7.times do |n|
-      output << print_single_line(row, n)
-    end
+    7.times {|n| output << print_single_line(row, n)}
     output
   end
 
   def print_single_line(row, n)
     output = ""
-    row.each do |m|
-      output << print_line_for_month(m, row, n)
-    end
+    row.each {|m| output << print_line_for_month(m, row, n)}
     output
   end
 
   def print_line_for_month(m, row, n)
     output = ""
-    if !m.print_days.lines[n].nil?
-        if m != row.last
-          output << "#{m.print_days.lines[n].chomp.ljust(22)}"
-        else
-          output << "#{m.print_days.lines[n].rstrip}\n"
-        end
-    else
-      if m != row.last
-        output << "#{(" " * 22).chomp.ljust(22)}"
+    unless m.days.lines[n].nil?
+      unless m == row.last
+        output << "#{m.days.lines[n].chomp.ljust(22)}"
       else
-        output << "\n"
+        output << "#{m.days.lines[n].rstrip}\n"
       end
+    else
+      m == row.last ? output << "\n" : output << "#{(" " * 22).chomp.ljust(22)}"
     end
     output
   end

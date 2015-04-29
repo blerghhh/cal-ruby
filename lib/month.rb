@@ -29,7 +29,7 @@ class Month
     end
   end
 
-  def print_days
+  def days
     line1_whitespace = 18 - (@zellers_arr.reverse[@day - 1] * 3)
     day_output = "Su Mo Tu We Th Fr Sa\n"
     day_output << " " * line1_whitespace
@@ -46,7 +46,7 @@ class Month
   def to_s
     <<EOS
 #{@month_header}
-#{print_days}
+#{days}
 EOS
   end
 
