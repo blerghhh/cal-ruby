@@ -26,28 +26,32 @@ class Year
     output
   end
 
-  def print_month_lines(row)
+  def month_dates(row)
     output = ""
-    7.times {|n| output << print_single_line(row, n)}
+    7.times do |line|
+      output << print_line(row, line)
+    end
     output
   end
 
-  def print_single_line(row, n)
+  def print_line(row, line)
     output = ""
-    row.each {|m| output << print_line_for_month(m, row, n)}
+    row.each {|m| output << print_line_for_month(m, row, line)}
     output
   end
 
-  def print_line_for_month(m, row, n)
+  def print_line_for_month(m, row, line)
     output = ""
-    unless m.days.lines[n].nil?
-      unless m == row.last
-        output << "#{m.days.lines[n].chomp.ljust(22)}"
+    unless m.days.lines[line].nil?
+
+      if m != row.last
+        output << "#{m.days.lines[line].chomp.ljust(22)}"
       else
-        output << "#{m.days.lines[n].rstrip}\n"
+        output << "#{m.days.lines[line].rstrip}\n"
       end
+
     else
-      m == row.last ? output << "\n" : output << "#{(" " * 22).chomp.ljust(22)}"
+      m == row.last ? output << "\n" : output << "#{("\s" * 22).chomp.ljust(22)}"
     end
     output
   end
@@ -55,8 +59,8 @@ class Year
   def to_s
     output = @header
     months_array.each_slice(3) do |row|
-    output << month_names(row)
-    output << print_month_lines(row)
+      output << month_names(row)
+      output << month_dates(row)
     end
     output
   end
