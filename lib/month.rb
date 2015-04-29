@@ -5,20 +5,17 @@ class Month
   attr_reader :day, :month, :year
 
   def initialize(month, year)
-    @month       = month
-    @year        = year
-    @day         = Day.new(@month, @year).start_day
-    @zellers_arr = (0..6).to_a
+    @month        = month
+    @year         = year
+    @day          = Day.new(@month, @year).start_day
+    @zellers_arr  = (0..6).to_a
+    @month_header = "#{"#{name} #{year}".center(20).rstrip}"
   end
 
   def name
     months = ["January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"]
     months[@month - 1]
-  end
-
-  def month_header
-    header = "#{"#{name} #{year}".center(20).rstrip}"
   end
 
   def days_in_month
@@ -48,7 +45,7 @@ class Month
 
   def to_s
     <<EOS
-#{month_header}
+#{@month_header}
 #{print_days}
 EOS
   end
