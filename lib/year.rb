@@ -7,8 +7,8 @@ class Year
     @year = year
   end
 
-  def leap?
-    ((@year % 4 != 0) or ((@year % 100 == 0) and (@year % 400 != 0))) ? 28 : 29
+  def leap
+    ((!@year.modulo(4).zero?) or ((@year.modulo(100).zero?) and (!@year.modulo(400).zero?))) ? 28 : 29
   end
 
   def to_s
