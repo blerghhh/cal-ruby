@@ -8,15 +8,7 @@ class Year
   end
 
   def leap?
-    if (@year % 4 == 0)
-      if (@year % 100 == 0) and (@year % 400 != 0)
-        return 28
-      else
-        return 29
-      end
-    else
-      return 28
-    end
+    ((@year % 4 != 0) or ((@year % 100 == 0) and (@year % 400 != 0))) ? 28 : 29
   end
 
   def to_s
