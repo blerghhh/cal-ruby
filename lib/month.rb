@@ -5,9 +5,10 @@ class Month
   attr_reader :day, :month, :year
 
   def initialize(month, year)
-    @month = month
-    @year = year
-    @day = Day.new(@month, @year).start_day
+    @month       = month
+    @year        = year
+    @day         = Day.new(@month, @year).start_day
+    @zellers_arr = (0..6).to_a
   end
 
   def name
@@ -17,6 +18,7 @@ class Month
   end
 
   def month_header
+    header = "#{"#{name} #{year}".center(20).rstrip}"
   end
 
   def days_in_month
@@ -31,13 +33,11 @@ class Month
   end
 
   def print_days
-    day_output       = ""
-    zellers_arr      = (0..6).to_a
-    line1_whitespace = 18 - (zellers_arr.reverse[@day - 1] * 3)
-    day_output << "Su Mo Tu We Th Fr Sa\n"
+    line1_whitespace = 18 - (@zellers_arr.reverse[@day - 1] * 3)
+    day_output = "Su Mo Tu We Th Fr Sa\n"
     day_output << " " * line1_whitespace
     (days_in_month - 1).times do |day|
-      if (day + zellers_arr[@day]) % 7 == 0
+      if (day + @zellers_arr[@day]).modulo(7).zero?
         day_output << "#{day + 1}\n".rjust(3)
       else
         day_output << "#{day + 1}\s".rjust(3)
@@ -48,7 +48,7 @@ class Month
 
   def to_s
     <<EOS
-#{"#{name} #{year}".center(20).rstrip}
+#{month_header}
 #{print_days}
 EOS
   end
