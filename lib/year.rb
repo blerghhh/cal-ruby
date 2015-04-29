@@ -26,40 +26,46 @@ class Year
     output
   end
 
-  def print_month_lines(month_row)
+  def print_month_lines(row)
     output = ""
     7.times do |n|
-      output << print_single_line(month_row, n)
+      output << print_single_line(row, n)
     end
     output
   end
 
-  def print_single_line(month_row, n)
+  def print_single_line(row, n)
     output = ""
-    month_row.each do |month|
-      if !month.print_days.lines[n].nil?
-          if month != month_row.last
-            output << "#{month.print_days.lines[n].chomp.ljust(22)}"
-          else
-            output << "#{month.print_days.lines[n].rstrip}\n"
-          end
-      else
-        if month != month_row.last
-          output << "#{(" " * 22).chomp.ljust(22)}"
+    row.each do |m|
+      output << print_line_for_month(m, row, n)
+    end
+    output
+  end
+
+  def print_line_for_month(m, row, n)
+    output = ""
+    if !m.print_days.lines[n].nil?
+        if m != row.last
+          output << "#{m.print_days.lines[n].chomp.ljust(22)}"
         else
-          output << "\n"
+          output << "#{m.print_days.lines[n].rstrip}\n"
         end
+    else
+      if m != row.last
+        output << "#{(" " * 22).chomp.ljust(22)}"
+      else
+        output << "\n"
       end
     end
     output
   end
 
   def to_s
-    year_output = @header
-    months_array.each_slice(3) do |month_row|
-    year_output << month_names(month_row)
-    year_output << print_month_lines(month_row)
+    output = @header
+    months_array.each_slice(3) do |row|
+    output << month_names(row)
+    output << print_month_lines(row)
     end
-    year_output
+    output
   end
 end
