@@ -10,22 +10,22 @@ class TestYear < Minitest::Test
 
   def test_leap_non_leap_year
     y = Year.new(2003)
-    assert_equal 28, y.leap?
+    assert_equal 28, y.leap
   end
 
   def test_leap_century_leap_year
     y = Year.new(1900)
-    assert_equal 28, y.leap?
+    assert_equal 28, y.leap
   end
 
   def test_leap_normal_leap_year
     y = Year.new(2004)
-    assert_equal 29, y.leap?
+    assert_equal 29, y.leap
   end
 
   def test_leap_400_year_leap_year
     y = Year.new(2000)
-    assert_equal 29, y.leap?
+    assert_equal 29, y.leap
   end
 
   def test_year_2012
