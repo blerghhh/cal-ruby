@@ -3,12 +3,13 @@ require_relative 'day'
 
 class Month
   attr_reader :day, :month, :year
+  ZELLERS_ARR  = (0..6).to_a
+
 
   def initialize(month, year)
     @month        = month
     @year         = year
     @day          = Day.new(@month, @year).start_day
-    @zellers_arr  = (0..6).to_a
     @month_header = "#{"#{name} #{year}".center(20).rstrip}"
   end
 
@@ -29,12 +30,15 @@ class Month
     end
   end
 
+  def line1_whitespace
+    "\s" * (18 - (ZELLERS_ARR.reverse[@day - 1] * 3))
+  end
+
   def days
-    line1_whitespace = 18 - (@zellers_arr.reverse[@day - 1] * 3)
     day_output = "Su Mo Tu We Th Fr Sa\n"
-    day_output << " " * line1_whitespace
+    day_output << line1_whitespace
     (days_in_month - 1).times do |day|
-      if (day + @zellers_arr[@day]).modulo(7).zero?
+      if (day + ZELLERS_ARR[@day]).modulo(7).zero?
         day_output << "#{day + 1}\n".rjust(3)
       else
         day_output << "#{day + 1}\s".rjust(3)
