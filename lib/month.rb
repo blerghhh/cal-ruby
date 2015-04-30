@@ -34,17 +34,21 @@ class Month
     "\s" * (18 - (ZELLERS_ARR.reverse[@day - 1] * 3))
   end
 
+  def new_line?(day)
+    (day + ZELLERS_ARR[@day]).modulo(7).zero?
+  end
+
+  def each_day
+    output = line1_whitespace
+    (days_in_month - 1).times do |day|
+      new_line?(day) ? output << "#{day + 1}\n".rjust(3) : output << "#{day + 1}\s".rjust(3)
+    end
+    output << "#{days_in_month.to_s}\n"
+  end
+
   def days
     day_output = "Su Mo Tu We Th Fr Sa\n"
-    day_output << line1_whitespace
-    (days_in_month - 1).times do |day|
-      if (day + ZELLERS_ARR[@day]).modulo(7).zero?
-        day_output << "#{day + 1}\n".rjust(3)
-      else
-        day_output << "#{day + 1}\s".rjust(3)
-      end
-    end
-    day_output << "#{days_in_month.to_s}\n"
+    day_output << each_day
   end
 
   def to_s
